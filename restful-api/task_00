@@ -1,0 +1,89 @@
+Différences entre HTTP et HTTPS
+
+HTTP (Hypertext Transfer Protocol) et HTTPS (Hypertext Transfer Protocol Secure) sont tous deux des protocoles utilisés pour transférer des données sur le web, mais ils diffèrent principalement par leur niveau de sécurité.
+
+    Sécurité : La principale différence entre HTTP et HTTPS est la sécurité. HTTP ne chiffre pas les données, ce qui signifie que toute personne surveillant la communication peut voir le contenu échangé entre le client et le serveur. En revanche, HTTPS utilise SSL/TLS (Secure Sockets Layer/Transport Layer Security) pour chiffrer les données, rendant le contenu inintelligible pour les espions.
+
+    Port : HTTP utilise le port 80 par défaut, tandis que HTTPS utilise le port 443.
+
+    Certificat SSL/TLS : HTTPS nécessite un certificat SSL/TLS, qui vérifie l'identité du site web et permet le chiffrement. Les certificats sont émis par des autorités de certification (CA).
+
+    URL : Les URL en HTTP commencent par "http://" et celles en HTTPS commencent par "https://".
+
+Structure d'une requête et réponse HTTP
+
+Requête HTTP :
+
+Une requête HTTP se compose généralement de quatre parties principales :
+
+    Ligne de requête : Indique la méthode HTTP, le chemin de la ressource demandée et la version du protocole.
+        Exemple : GET /index.html HTTP/1.1
+
+    En-têtes de requête : Fournissent des informations supplémentaires sur la requête ou sur le client.
+        Exemple : Host: www.example.com, User-Agent: Mozilla/5.0
+
+    Ligne vide : Sépare les en-têtes du corps de la requête.
+
+    Corps de la requête (facultatif) : Contient les données à envoyer au serveur (par exemple, les données d'un formulaire).
+
+Réponse HTTP :
+
+Une réponse HTTP se compose également de quatre parties principales :
+
+    Ligne de statut : Indique la version du protocole, le code de statut et le message de statut.
+        Exemple : HTTP/1.1 200 OK
+
+    En-têtes de réponse : Fournissent des informations supplémentaires sur la réponse ou le serveur.
+        Exemple : Content-Type: text/html; charset=UTF-8, Content-Length: 138
+
+    Ligne vide : Sépare les en-têtes du corps de la réponse.
+
+    Corps de la réponse : Contient les données renvoyées par le serveur (par exemple, le contenu d'une page web).
+
+Méthodes HTTP courantes
+
+    GET
+        Description : Récupère des données d'un serveur.
+        Cas d'utilisation : Récupérer une page web ou des données d'une API.
+        Exemple : GET /about.html HTTP/1.1
+
+    POST
+        Description : Envoie des données au serveur.
+        Cas d'utilisation : Soumettre un formulaire ou télécharger un fichier.
+        Exemple : POST /submit-form HTTP/1.1
+
+    PUT
+        Description : Remplace toutes les représentations actuelles de la ressource cible par le contenu de la requête.
+        Cas d'utilisation : Mettre à jour ou créer une ressource sur le serveur.
+        Exemple : PUT /user/123 HTTP/1.1
+
+    DELETE
+        Description : Supprime la ressource spécifiée.
+        Cas d'utilisation : Supprimer un fichier ou une entrée de base de données.
+        Exemple : DELETE /user/123 HTTP/1.1
+
+Codes de statut HTTP courants
+
+    200 OK
+        Description : La requête a réussi. Le serveur renvoie les ressources demandées.
+        Scénario : Lorsqu'une page web se charge correctement.
+
+    404 Not Found
+        Description : La ressource demandée est introuvable sur le serveur.
+        Scénario : Lorsqu'un utilisateur tente d'accéder à une page qui n'existe pas.
+
+    500 Internal Server Error
+        Description : Le serveur a rencontré une condition inattendue qui l'a empêché de répondre à la requête.
+        Scénario : Lorsqu'une erreur se produit sur le serveur, comme un problème de script ou de configuration.
+
+    301 Moved Permanently
+        Description : La ressource demandée a été déplacée de manière permanente à une nouvelle URL.
+        Scénario : Lorsqu'une page web a été définitivement déplacée vers une nouvelle adresse.
+
+    403 Forbidden
+        Description : Le serveur comprend la requête, mais refuse de l'exécuter.
+        Scénario : Lorsqu'un utilisateur tente d'accéder à une ressource protégée sans autorisation.
+
+Résumé
+
+HTTP et HTTPS sont des protocoles utilisés pour la communication sur le web, mais HTTPS offre une sécurité accrue grâce au chiffrement SSL/TLS. Les requêtes et réponses HTTP ont une structure bien définie, comprenant une ligne de requête ou de statut, des en-têtes, une ligne vide et un corps optionnel. Les méthodes HTTP courantes incluent GET, POST, PUT et DELETE, tandis que les codes de statut courants incluent 200, 404, 500, 301 et 403.
