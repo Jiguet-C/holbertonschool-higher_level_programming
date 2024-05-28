@@ -3,6 +3,7 @@ import http.server
 import json
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
+
 class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         if self.path == '/':
@@ -28,6 +29,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
             self.end_headers()
             error_message = {"error": "Endpoint not found"}
             self.wfile.write(json.dumps(error_message).encode('utf-8'))
+
 
 if __name__ == '__main__':
     port = 8000
