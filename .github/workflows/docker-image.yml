@@ -28,5 +28,5 @@ jobs:
       with:
         context: .
         push: true
-        tags: ghcr.io/${{ github.repository_owner | toLower }}/hello-alpine:latest
+        tags: ghcr.io/jiguet-c/hello-alpine:latest
 
