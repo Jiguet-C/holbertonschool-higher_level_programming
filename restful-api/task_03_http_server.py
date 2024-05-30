@@ -9,6 +9,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 
 class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
+        """Handle GET requests."""
         if self.path == '/':
             self.send_response(200)
             self.send_header('Content-type', 'text/plain')
