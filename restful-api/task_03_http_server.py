@@ -1,34 +1,39 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """
-Develop a simple API using Python with the `http.server` module
+The http.server module Python’s standard library provides
+basic classes for implementing web servers. While it’s not typically
+used for production applications, it’s a handy tool for building simple
+web servers and understanding the basics of web programming without
+relying on third-party libraries.
 """
+
 import http.server
 import json
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
 
-class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
+class SimpleHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
         """Handle GET requests."""
-        if self.path == '/':
+        if self.path == "/":
             self.send_response(200)
-            self.send_header('Content-type', 'text/plain')
+            self.send_header("Content-type", "text/plain")
             self.end_headers()
-            self.wfile.write(b'Hello, this is a simple API!')
-        elif self.path == '/data':
+            self.wfile.write(b"Hello, this is a simple API!")
+        elif self.path == "/data":
             self.send_response(200)
-            self.send_header('Content-type', 'application/json')
+            self.send_header("Content-type", "application/json")
             self.end_headers()
             data = {"name": "John", "age": 30, "city": "New York"}
-            self.wfile.write(json.dumps(data).encode('utf-8'))
-        elif self.path == '/status':
+            self.wfile.write(json.dumps(data).encode())
+        elif self.path == "/status":
             self.send_response(200)
-            self.send_header('Content-type', 'application/plain')
+            self.send_header("Content-type", "text/plain")
             self.end_headers()
             self.wfile.write(b"OK")
-        elif self.path == '/info':
+        elif self.path == "/info":
             self.send_response(200)
-            self.send_header('Content-type', 'application/json')
+            self.send_header("Content-type", "application/json")
             self.end_headers()
             info_data = {
                 "version": "1.0",
@@ -36,7 +41,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
             }
             self.wfile.write(json.dumps(info_data).encode())
         else:
-            self.send_error(404, 'Endpoint not found')
+            self.send_error(404, "Endpoint not found")
 
 
 if __name__ == '__main__':
