@@ -2,13 +2,15 @@
 
 import os
 
+
 def generate_invitations(template, attendees):
     # Vérification des types d'entrée
     if not isinstance(template, str):
         print("Error: Template should be a string.")
         return
 
-    if not isinstance(attendees, list) or not all(isinstance(item, dict) for item in attendees):
+    if not isinstance(attendees, list) or not all(isinstance(item, dict)
+                                                  for item in attendees):
         print("Error: Attendees should be a list of dictionaries.")
         return
 
