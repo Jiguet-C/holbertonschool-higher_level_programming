@@ -1,57 +1,52 @@
 #!/usr/bin/python3
 
 
-import os
-
-
 def generate_invitations(template, attendees):
-    try:
-        # Vérifier que le modèle est une chaîne de caractères
-        if not isinstance(template, str):
-            raise ValueError("Template is not a string")
+    if not isinstance(template, str):
+        print("Error: Template should be a string.")
+        return
 
-        # Vérifier que les participants sont une liste de dictionnaires
-        if not isinstance(attendees, list) or not all(isinstance(att, dict)
-                                                      for att in attendees):
-            raise ValueError("Attendees sould be list of dictionnaries")
+    if not isinstance(attendees, list) or not all(isinstance(attendee, dict)
+                                                  for attendee in attendees):
+        print("Error: Attendees should be a list of dictionaries.")
+        return
 
-        # Vérifier que le modèle n'est pas vide
-        if template.strip() == "":
-            print("Template is empty, no output files generated")
-            return
+    if not template.strip():
+        print("Template is empty, no output files generated.")
+        return
 
-        # Vérifier que la liste des participants n'est pas vide
-        if not attendees:
-            print("No data prvided, no output file generated")
-            return
+    if not attendees:
+        print("No data provided, no output files generated.")
+        return
 
-        # Traiter chaque participant
-        for i, attendee in enumerate(attendees, start=1):
-            # Remplacer les valeurs manquantes par "N/A"
-            name = attendee.get("name", "N/A")
-            event_title = attendee.get("event_title", "N/A")
-            event_date = attendee.get("event_date", "N/A")
-            event_location = attendee.get("event_location", "N/A")
+    for idx, attendee in enumerate(attendees, start=1):
+        # Create a copy of the template to replace placeholders
+        invitation = template[:]
 
-        # Remplacer les espaces réservés par les valeurs du dictionnaire
-            invitation = template.format(
-                name=name,
-                event_title=event_title,
-                event_date=event_date if event_date else "N/A",
-                event_location=event_location
-            )
+        # Replace placeholders with attendee's data or "N/A" if data is missing
+        for key in ["name", "event_title", "event_date", "event_location"]:
+            value = attendee.get(key, "N/A") or "N/A"
+            invitation = invitation.replace(f"{{{key}}}", value)
 
-            # Nommer le fichier de sortie
-            output_filename = "output_{}.txt".format(i)
+        # Write the invitation to an output file
+        output_filename = f"output_{idx}.txt"
+        with open(output_filename, 'w') as output_file:
+            output_file.write(invitation)
 
-            # Écrire le contenu dans le fichier de sortie
-            try:
-                with open(output_filename, 'w') as output_file:
-                    output_file.write(invitation)
-                print("Generated {}".format(output_filename))
-            except IOError as e:
-                print("Error writing file {}: {}".format(output_filename, e))
-    except ValueError as e:
-        print("{ValueError: {}".format(e))
-    except Exception as e:
-        print("An unexpected error occurred: {}".format(e))
+
+if __name__ == "__main__":
+    # Read the template from a file
+    with open('template.txt', 'r') as file:
+        template_content = file.read()
+
+    attendees = [
+        {"name": "Alice", "event_title": "Python Conference",
+         "event_date": "2023-07-15", "event_location": "New York"},
+        {"name": "Bob", "event_title": "Data Science Workshop",
+         "event_date": "2023-08-20", "event_location": "San Francisco"},
+        {"name": "Charlie", "event_title": "AI Summit", "event_date": None,
+         "event_location": "Boston"}
+    ]
+
+    # Call the function with the template and attendees list
+    generate_invitations(template_content, attendees)
